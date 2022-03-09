@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: ["ow-fork-*"]
+    branches: ["test-*"]
     tags: ["*-*ow"]
 
 jobs:

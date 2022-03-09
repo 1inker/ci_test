@@ -86,13 +86,16 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  #release:
-  #  needs: [calc_ver, build_linux]
-  #  if: ${{ needs.calc_ver.outputs.release_flag == 'ON' }}
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #  - uses: eregon/publish-release@v1
-  #    env:
-  #      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #    with:
-  #      release_id: ${{ needs.calc_ver.outputs.release_id }}
+  release:
+    needs: [calc_ver, build_linux]
+    if: ${{ needs.calc_ver.outputs.release_flag == 'ON' }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set publish info
+      id: publish_info
+      run: echo "release_id=${{steps.create_release.outputs.id}}"
+    - uses: eregon/publish-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        release_id: ${{ needs.calc_ver.outputs.release_id }}

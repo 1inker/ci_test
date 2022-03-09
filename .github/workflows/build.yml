@@ -70,8 +70,8 @@ jobs:
 
     - name: Create artifact
       shell: bash
-      working-directory: ${{github.workspace}}/bld
       run: |
+        mkdir ${{github.workspace}}/bld
         echo "FDB_RELEASE=${{needs.calc_ver.outputs.release_flag}}" >${{github.workspace}}/bld/artifact.txt
         echo "DBUILD_VERSION=${{needs.calc_ver.outputs.build_ver}}" >>${{github.workspace}}/bld/artifact.txt
 

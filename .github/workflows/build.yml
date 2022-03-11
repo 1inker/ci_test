@@ -81,7 +81,6 @@ jobs:
         asset_path: |
           ${{github.workspace}}/bld/*
         upload_url: ${{ needs.calc_ver.outputs.release_upload_url }}
-        if-no-files-found: error
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

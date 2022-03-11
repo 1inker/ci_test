@@ -78,9 +78,9 @@ jobs:
     - name: Upload result
       uses: actions/upload-release-asset@v1
       with:
+        upload_url: ${{ needs.calc_ver.outputs.release_upload_url }}
         asset_path: |
           ${{github.workspace}}/bld/*
-        upload_url: ${{ needs.calc_ver.outputs.release_upload_url }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

@@ -76,12 +76,11 @@ jobs:
         echo "DBUILD_VERSION=${{needs.calc_ver.outputs.build_ver}}" >>${{github.workspace}}/bld/artifact.txt
 
     - name: Upload result
-      uses: nanoufo/action-upload-artifacts-and-release-assets@v1.4
+      uses: actions/upload-release-asset@v1
       with:
-        path: |
+        asset_path: |
           ${{github.workspace}}/bld/*
-        upload-release-files: ${{ needs.calc_ver.outputs.release_flag }}
-        release-upload-url: ${{ needs.calc_ver.outputs.release_upload_url }}
+        upload_url: ${{ needs.calc_ver.outputs.release_upload_url }}
         if-no-files-found: error
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

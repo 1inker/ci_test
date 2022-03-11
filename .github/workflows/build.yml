@@ -74,6 +74,7 @@ jobs:
         mkdir ${{github.workspace}}/bld
         echo "FDB_RELEASE=${{needs.calc_ver.outputs.release_flag}}" >${{github.workspace}}/bld/artifact.txt
         echo "DBUILD_VERSION=${{needs.calc_ver.outputs.build_ver}}" >>${{github.workspace}}/bld/artifact.txt
+        echo "release_upload_url=${{ needs.calc_ver.outputs.release_upload_url }}"
 
     - name: Upload result
       uses: actions/upload-release-asset@v1

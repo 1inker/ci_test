@@ -41,12 +41,31 @@ jobs:
         echo "::set-output name=full_ver::$PROJECT_VERSION-$BUILD_VERSION"
         echo "::set-output name=release_flag::$RELEASE_FLAG"
 
+    - name: Get actual compiler
+      id: cxx
+      shell: bash
+      run: |
+        OLD_CXX_COMPILER=`which c++`
+        OLD_CXX_VERSION=`c++ --version`
+        sudo apt update
+        sudo apt install -y sudo git cmake libboost-dev g++ build-essential libssl-dev default-jdk python3 python3-pip liblz4-dev ninja-build rpm
+        NEW_CXX_COMPILER=`which c++`
+        NEW_CXX_VERSION=`c++ --version`
+        echo "::set-output name=old_cxx_compiler::$OLD_CXX_COMPILER"
+        echo "::set-output name=new_cxx_compiler::$NEW_CXX_COMPILER"
+        echo "::set-output name=old_cxx_version::$OLD_CXX_VERSION"
+        echo "::set-output name=new_cxx_version::$NEW_CXX_VERSION"
+
     - name: Display versions
       run: |
         echo "project_ver=${{steps.vers.outputs.project_ver}}"
         echo "build_ver=${{steps.vers.outputs.build_ver}}"
         echo "full_ver=${{steps.vers.outputs.full_ver}}"
         echo "release_flag=${{steps.vers.outputs.release_flag}}"
+        echo "old_cxx_compiler=${{steps.cxx.outputs.old_cxx_compiler}}"
+        echo "old_cxx_version=${{steps.cxx.outputs.old_cxx_version}}"
+        echo "new_cxx_compiler=${{steps.cxx.outputs.new_cxx_compiler}}"
+        echo "new_cxx_version=${{steps.cxx.outputs.new_cxx_version}}"
 
     - name: Create Draft Release
       if: ${{ steps.vers.outputs.release_flag == 'ON' }}

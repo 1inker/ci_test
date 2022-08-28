@@ -88,6 +88,7 @@ jobs:
         run: |
           echo "Free space:"
           df -h
+          free
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -111,6 +112,7 @@ jobs:
         run: |
           echo "Free space:"
           df -h
+          free
 
       - name: Upload result
         if: ${{ steps.vers.outputs.release_flag == 'ON' }}

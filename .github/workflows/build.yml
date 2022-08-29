@@ -92,7 +92,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v2
-        path: '/home/runner/very_big_prefix_to_appese_cpack_and_build_releases/foundationdb'
+        with:
+          - path: '/home/runner/very_big_prefix_to_appese_cpack_and_build_releases/foundationdb'
 
       - name: Create artifact
         shell: bash
